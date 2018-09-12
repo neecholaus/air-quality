@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../api.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-search',
@@ -8,16 +8,20 @@ import { ApiService } from '../api.service';
 })
 export class SearchComponent implements OnInit {
 
-  results = [];	
+  results = null;	
 
-  constructor(public apiService: ApiService) { }
+  testUrl = 'http://api.waqi.info/feed/buffalo/?token=demo';
+
+  constructor(private http: HttpClient) { }
 
   ngOnInit() {
   	
   }
 
   getResults(): void {  
-  	this.apiService.getResults().subscribe(results => this.results = results);
+  	// this.apiService.getResults().subscribe(results => this.results = results);
+
+    this.http.get(this.testUrl).subscribe(results => this.results = results);
   }
 
 }
