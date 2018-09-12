@@ -3,14 +3,10 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { SearchComponent } from './search/search.component';
-import { ResultsComponent } from './results/results.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    SearchComponent,
-    ResultsComponent
+    AppComponent    
   ],
   imports: [
     BrowserModule,
