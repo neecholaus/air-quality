@@ -1,0 +1,9 @@
+#response {
+    position: relative;
+}
+
+#clearResponse {
+    position: absolute;
+    right: 20px;
+    top: calc(50% - 15px);
+}

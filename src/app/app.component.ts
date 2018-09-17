@@ -1,35 +1,55 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Response } from './response';
 import * as toastr from 'toastr';
- 
+
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'air-quality';
+    API_URL = 'http://api.waqi.info/feed/buffalo/?token=demo';
 
-  ROOT_URL = 'http://api.waqi.info/feed/buffalo/?token=demo';
+    response: Response;
 
-  response: any;
+    constructor(private http: HttpClient) { }
 
-  constructor(private http: HttpClient) { }
+    ngOnInit() {
+        toastr.options = {
+            closeButton: false,
+            debug: false,
+            newestOnTop: false,
+            progressBar: true,
+            positionClass: 'toast-bottom-right',
+            preventDuplicates: false,
+            onclick: null,
+            showDuration: 300,
+            hideDuration: '1000',
+            ntimeOut: '5000',
+            extendedTimeOut: '1000',
+            showEasing: 'swing',
+            hideEasing: 'linear',
+            showMethod: 'fadeIn',
+            hideMethod: 'fadeOut'
+        };
+    }
 
-  ngOnInit() { }
+    getResponse(): void {
+        this.http.get(this.API_URL).pipe().subscribe((response) => {
+            this.response = <Response>response;
 
-  getResponse(): void {  
-    this.http.get(this.ROOT_URL).subscribe((response) => {
-    	this.response = response
+            if (this.response.status === 'ok') {
+                toastr.success('Location found.', 'Success!');
+            } else {
+                toastr.error('Location was not found.', 'Error!');
+            }
+        });
+    }
 
-		let status = this.response.status;
+    clearResponse(): void {
+        this.response = Response = null;
 
-
-		if(status == 'ok') {
-			toastr.success('Location found.', 'Success!');
-		} else {
-			toastr.error('Location was not found.', 'Error!');
-		}
-    });
-  }
+        toastr.success('Response was cleared.', 'Success!');
+    }
 }

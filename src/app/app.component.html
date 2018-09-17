@@ -1,15 +1,21 @@
-<div class="container pt-3">
-  <div class="jumbotron text-muted">
-    <h2>Air Quality</h2>
-    <h5>Using the <a href="http://aqicn.org/api/" target="_blank">World Air Quality Index API</a></h5>
+<div class="container-fluid p-5 bg-primary text-white">
+	<h2>Air Quality</h2>
+    <h3><span class="badge badge-light">Using the <a href="http://aqicn.org/api/" target="_blank" rel="noopener">World Air Quality Index API</a></span></h3>
 
 	<label class="custom-label mt-4">Find the air quality in any location...</label>
 	<div class="input-group">
 		<input type="text" class="form-control" name="search" placeholder="Enter Location" />
 		<div class="input-group-append">
-			<button type="button" class="btn btn-primary" (click)="getResponse()"><i class="fa fa-search"></i></button>
+			<button type="button" class="btn btn-warning" (click)="getResponse()"><i class="fa fa-search"></i></button>
 		</div>
 	</div>
-	<div>{{ response | json }}</div>
-  </div>
+
+	<div *ngIf="response" class="p-4 bg-light text-muted mt-4 rounded" id="response">
+		<h3>{{ response.data.aqi }}</h3>
+		<h5>{{ response.data.city.name }}</h5>
+
+        <button type="button" class="close" id="clearResponse" (click)="clearResponse()">
+            <span>&times;</span>
+        </button>
+	</div>
 </div>
