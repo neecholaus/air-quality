@@ -4,9 +4,9 @@
 
 	<label class="custom-label mt-4">Find the air quality in any location...</label>
 	<div class="input-group">
-		<input type="text" class="form-control" name="search" placeholder="Enter Location" />
+		<input type="text" class="form-control" [(ngModel)]="search" [value]="search" placeholder="Enter Location" />
 		<div class="input-group-append">
-			<button type="button" class="btn btn-warning" (click)="getResponse()"><i class="fa fa-search"></i></button>
+			<button type="button" class="btn btn-warning" (click)="getResponse(search)"><i class="fa fa-search"></i></button>
 		</div>
 	</div>
 
